@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter of Our Lives 🤍 Exhibition for Mom</title>
+    <!-- นำเข้าฟอนต์สไตล์ละมุนและโมเดิร์นจาก Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Sarabun:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f7f4ef;
+            --card-bg: #ffffff;
+            --text-main: #332d2d;
+            --sub-color: #8c7a6b;
+            --accent-color: #b08968;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Sarabun', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* ส่วนหัวแกลเลอรี */
+        .gallery-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .gallery-title h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--sub-color);
+            margin-bottom: 5px;
+        }
+
+        .gallery-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* โครงสร้างเล่าเรื่องทีละการ์ด (Storyline Sections) */
+        .story-wrapper {
+            max-width: 600px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .art-chapter {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.03);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* กำหนดเวลาการแสดงผลทีละบล็อกให้ดูมีจังหวะ */
+        .art-chapter:nth-child(1) { animation-delay: 0.2s; }
+        .art-chapter:nth-child(2) { animation-delay: 0.5s; }
+        .art-chapter:nth-child(3) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* หมายเลขบท (Chapter Number) */
+        .chapter-tag {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        /* กรอบรูปภาพสไตล์นิตยสาร/แกลเลอรี */
+        .frame {
+            padding: 10px;
+            background: #faf8f5;
+            border: 1px solid #e6e0d5;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0ece1;
+        }
+
+        .frame img {
+            width: 100%;
+            height: auto;           /* ปรับความสูงตามสัดส่วนรูปจริงอัตโนมัติ */
+            max-height: 450px;      /* จำกัดความสูงไม่ให้ยาวเกินไป */
+            object-fit: contain;    /* ป้องกันรูปโดนตัด แสดงผลครบทุกสัดส่วน */
+            display: block;
+            filter: grayscale(10%);
+            transition: filter 0.5s ease;
+        }
+
+        .frame img:hover {
+            filter: grayscale(0%);
+        }
+
+        /* ข้อความเรื่องราว */
+        .story-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .story-text p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #594f4f;
+            font-weight: 300;
+        }
+
+        /* กล่องจดหมายเปิดความในใจตอนท้าย (Interactive) */
+        .final-chapter {
+            text-align: center;
+            background: #efebe4;
+            padding: 40px 30px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .btn-art {
+            background: transparent;
+            border: 1px solid var(--text-main);
+            color: var(--text-main);
+            padding: 12px 30px;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+            margin-top: 15px;
+        }
+
+        .btn-art:hover {
+            background: var(--text-main);
+            color: #ffffff;
+        }
+
+        .hidden-note {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-in-out;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--accent-color);
+            font-size: 1.15rem;
+            line-height: 1.6;
+        }
+
+        .hidden-note.show {
+            max-height: 200px;
+            margin-top: 20px;
+        }
+
+        .footer-note {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: var(--sub-color);
+            letter-spacing: 1px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery-title">
+        <h3>Happy Mother's Day</h3>
+        <h1>🤍 สุขสันต์วันแม่ 🤍</h1>
+    </div>
+
+    <div class="story-wrapper">
+
+        <!-- บทที่ 1 -->
+        <div class="art-chapter">
+            <div class="chapter-tag">Chapter I — Graceful & Strong</div>
+            <div class="frame">
+                <!-- แก้ไขเส้นทางโฟลเดอร์เป็นรูป/m-1.jpg -->
+                <img src="รูป/m-1.jpg" alt="Memory 1">
+            </div>
+            <div class="story-text">
+                <h2>ผู้หญิงที่ <Strong>ยิ่งใหญ่และกล้าหาญ</Strong></h2>
+                <p>แม่เป็นผู้หญิงที่ยิ่งใหญ่และกล้าหาญ คอยปกป้องและดูแลเราในทุกๆ วัน ไม่ว่าจะเผชิญกับอุปสรรคใด ๆ แม่จะผ่านมันไปได้เสมอ ไม่ว่าจะเป็นเรื่องที่ยากลำบากใด ๆ ก็ตามก็จะฝ่าฟันได้เสมอ เป็นแม่ที่ยอดเยี่ยมที่สุด พยายามทำสิ่งต่าง ๆ ให้ดีที่สุดเสมอ ไม่ว่าจะเป็นเรื่องใด ๆ ก็ตาม</p>
+            </div>
+        </div>
+
+        <!-- บทที่ 2 -->
+        <div class="art-chapter">
+            <div class="chapter-tag">Chapter II — True Support & Care</div>
+            <div class="frame">
+                <img src="รูป/m-2.jpg" alt="Memory 2">
+            </div>
+            <div class="story-text">
+                <h2>ความรักทีมีกันและกัน คอยอยู่เคียงข้างกันเสมอ</h2>
+                <p>ขอบคุณ Dad Julian ที่เข้ามาเป็นพลังใจสำคัญ คอยอยู่เคียงข้างและดูแลแม่ในทุกๆ วัน คอยสนับสนุนในสิ่งต่าง ๆ ที่แม่ชอบอยู่เสมอ คอยอยู่เคียงข้างแม่ตอนที่แม่ต้องเผชิญกับความยากลำบากและส่งเสียและดูแลอนาคตเรื่องเรียนของพวกเราอย่างเต็มที่ ความพยายามที่จะเข้าใจและเข้าหาพวกเรา ทำให้หนูสัมผัสได้ถึงความรักที่แท้จริง ขอบคุณที่เข้ามาเติมเต็มครอบครัวของเราให้สมบูรณ์แบบนะคะ</p>
+            </div>
+        </div>
+
+        <!-- บทที่ 3 -->
+        <div class="art-chapter">
+            <div class="chapter-tag">Chapter III — Cherished Memories</div>
+            <div class="frame">
+                <!-- แก้ไขเส้นทางโฟลเดอร์เป็นรูป/m-3.jpg -->
+                <img src="รูป/m-3.jpg" alt="Memory 3">
+            </div>
+            <div class="story-text">
+                <h2>ช่วงเวลาดีๆ ที่จดจำไม่รู้ลืม</h2>
+                <p>ความทรงจำที่เก็บความสุข รอยยิ้ม และความอบอุ่นของพวกเราไว้ในทุกๆ รายละเอียด ขอบคุณที่พยายามเพื่อพวกเรามาโดยตลอดนะคะ</p>
+            </div>
+        </div>
+
+        <!-- บทที่ 4: บทสรุปและความในใจ -->
+        <div class="art-chapter final-chapter">
+            <div class="chapter-tag">Final Chapter — Forever Love</div>
+            <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 10px;">ถึงแม่ผู้เป็นที่รักยิ่ง</h2>
+            
+            <button class="btn-art" onclick="revealLetter()">Open Letter</button>
+
+            <div id="secretLetter" class="hidden-note">
+                "ขอบคุณสำหรับทุกสิ่งทุกอย่างที่แม่พยายามทำให้เราเสมอมา ไม่ว่าเราจะมีปัญหาอะไรมากแค่ไหนก็ยังคอยรับฟัง สอนเราในเรื่องต่าง ๆ  ความรักและความอบอุ่นของแม่เป็นสิ่งที่เราจะจดจำตลอดไป ขอให้แม่มีความสุข สุขภาพแข็งแรง เฮง ๆ รวย ๆ และมีความสุขกับการใช้ชีวิตในทุกๆ วัน 🤍 "
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-note">
+        CURATED WITH LOVE FOR MOM • 2026
+    </div>
+
+    <script>
+        function revealLetter() {
+            const letter = document.getElementById('secretLetter');
+            letter.classList.toggle('show');
+            
+            const btn = document.querySelector('.btn-art');
+            if (letter.classList.contains('show')) {
+                btn.innerText = "Close Letter";
+            } else {
+                btn.innerText = "Open Letter";
+            }
+        }
+    </script>
+
+</body>
+</html>
